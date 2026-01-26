@@ -1,0 +1,11 @@
+.backgroundContainer {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/img/field.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  max-width: 400px;
+}

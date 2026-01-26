@@ -1,0 +1,140 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        xml:space="preserve"
+        id="圖層_1"
+        version="1.1"
+        x="0"
+        y="0"
+        width="200"
+        height="200"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid"
+        style="display: block; shape-rendering: auto;"
+>
+  <g
+          class="ldl-scale"
+          style="transform-origin: 50% 50%; transform: rotate(0deg) scale(0.8, 0.8);"
+  >
+    <g class="ldl-ani">
+      <g class="ldl-layer">
+        <g
+                class="ldl-ani"
+                style="
+            opacity: 1;
+            transform-origin: 50px 50px;
+            transform: matrix3d(
+              0.91,
+              0,
+              0,
+              0,
+              0,
+              0.91,
+              0,
+              0,
+              0,
+              0,
+              0.91,
+              0,
+              0,
+              0,
+              0,
+              1
+            );
+            animation: 1s linear -0.666667s infinite normal forwards running
+              animate;
+            transform-box: view-box;
+          "
+        >
+          <!-- Círculo blanco (interior) -->
+            <path
+                    d="M21.702 78.297c15.603 15.603 40.992 15.604 56.595 0 15.603-15.603 15.603-40.992 0-56.595-15.603-15.603-40.991-15.603-56.595 0-15.603 15.604-15.603 40.992 0 56.595z"
+                    fill="#ffffff"
+                    style="stroke-width: 1;"
+            />
+        </g>
+      </g>
+
+        <g class="ldl-layer">
+        <g class="ldl-ani">
+          <g>
+            <g class="ldl-layer">
+              <g
+                      class="ldl-ani"
+                      style="
+                  opacity: 1;
+                  transform-origin: 50px 50px;
+                  transform: matrix3d(
+                    0.91,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0.91,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0.91,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  );
+                  animation: 1s linear -0.833333s infinite normal forwards
+                    running animate;
+                  transform-box: view-box;
+                "
+              >
+                <!-- Parte interna morada -->
+                  <path
+                          d="M62.408 33.354l-8.699-3.915c-1.691-.761-4.094-.261-5.34 1.112l-6.414 7.063c-1.246 1.373-1.513 3.812-.593 5.422l4.736 8.281c.92 1.609 3.158 2.617 4.973 2.239l9.34-1.945c1.815-.378 3.465-2.196 3.666-4.038l1.037-9.483c.203-1.845-1.015-3.975-2.706-4.736z"
+                          fill="#5d0ec0"
+                          style="stroke-width: 1;"
+                  />
+              </g>
+            </g>
+
+              <g class="ldl-layer">
+              <g
+                      class="ldl-ani"
+                      style="
+                  opacity: 1;
+                  transform-origin: 50px 50px;
+                  transform: matrix3d(
+                    0.91,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0.91,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0.91,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                  );
+                  animation: 1s linear -1s infinite normal forwards running
+                    animate;
+                  transform-box: view-box;
+                "
+              >
+                <!-- Border -->
+                  <path
+                          d="M75.914 24.086c-14.289-14.289-37.539-14.289-51.828 0-14.289 14.289-14.289 37.539 0 51.827 14.289 14.29 37.539 14.29 51.828.001s14.289-37.539 0-51.828zm-6.449 43.1c-.102-.173-.172-.274-.185-.258-.028.034-.832-1.211-1.72-2.838l-.035-.063c-.889-1.627-3.108-2.677-4.93-2.336l-7.166 1.348c-1.822.343-3.507 2.128-3.744 3.966l-.686 5.324c-.237 1.839-.476 3.344-.53 3.344-.023 0-.068.104-.117.27-6.428.087-12.877-2.188-17.924-6.833a.892.892 0 0 0 .104-.169c-.006-.005.98-1.159 2.203-2.552l3.491-3.978c1.223-1.394 1.449-3.837.501-5.431L35 50.711c-.947-1.594-3.202-2.564-5.01-2.155l-2.46.556c-1.808.409-3.286.658-3.283.555.001-.021-.074-.038-.197-.05.095-6.522 2.619-13.015 7.585-17.981 10.126-10.126 26.603-10.126 36.729 0 9.743 9.742 10.107 25.361 1.101 35.55z"
+                          fill="#5d0ec0"
+                          style="stroke-width: 1;"
+                  />
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
