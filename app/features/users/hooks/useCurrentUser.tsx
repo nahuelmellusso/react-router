@@ -9,6 +9,7 @@ export function useCurrentUser() {
         method: "GET",
         url: "auth/me",
       });
+      return await doRequest();
     },
     retry: false,
     staleTime: 60_000,

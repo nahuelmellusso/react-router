@@ -10,11 +10,6 @@ export default [
     layout("routes/$locale.tsx", { id: "locale-root" }, [
       index("routes/$locale/index.tsx"), // "/:locale"
 
-      // /:locale/dashboard/*
-      /*...prefix("dashboard", [
-        route("", "routes/$locale/dashboard/index.tsx"), // "/:locale/dashboard"
-      ]),
-*/
       layout("routes/$locale/require-auth.tsx", [
         ...prefix("dashboard", [route("", "routes/$locale/dashboard/index.tsx")]),
 

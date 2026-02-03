@@ -1,4 +1,5 @@
 import axios, { type Method } from "axios";
+import { HttpError } from "~/helpers/HttpError";
 
 export type QueryParams = string | URLSearchParams | string[][] | Record<string, string>;
 export type ApiFetchProps = {
@@ -52,15 +53,14 @@ export const apiFetch =
       }
 
       return response.data;
-    } catch (error) {
-      console.log("Error fetching data: ", error);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status ?? 500;
+        const message = err.response?.data?.message ?? err.message ?? "Unexpected error";
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      if (error?.response?.status === 401) {
-        window.location.href = "/logout";
+        throw new HttpError(status, message);
       }
 
-      throw error;
+      throw new HttpError(500, "Unknown error");
     }
   };
