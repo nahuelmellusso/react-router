@@ -4,7 +4,7 @@ import { KeyIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Button, FormError, Input } from "~/components";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
-import { useI18n } from "~/routes/$locale";
+
 import type { LoginPayload } from "~/features/users/types/types";
 import { useAuth } from "~/features/users/hooks/useAuth";
 import { z } from "zod";
@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { showToast } from "~/helpers/showToast";
+import { useI18n } from "~/hooks/useI18n";
 
 export default function Login() {
   const { t } = useI18n();

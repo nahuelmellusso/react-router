@@ -1,4 +1,4 @@
-import { useI18n } from "~/routes/$locale";
+import { useI18n } from "~/hooks/useI18n";
 import { Button, Input } from "~/components";
 import { showToast } from "~/helpers/showToast";
 

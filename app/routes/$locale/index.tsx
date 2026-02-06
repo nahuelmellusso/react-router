@@ -1,4 +1,4 @@
-import { useI18n } from "../$locale";
+import { useI18n } from "~/hooks/useI18n";
 
 export default function LocaleHome() {
   const { t } = useI18n();

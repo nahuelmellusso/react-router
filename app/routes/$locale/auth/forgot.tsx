@@ -1,4 +1,4 @@
-import { useI18n } from "~/routes/$locale";
+import { useI18n } from "~/hooks/useI18n";
 import { Button, FormError, Input } from "~/components";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { useForm } from "react-hook-form";
