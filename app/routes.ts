@@ -11,11 +11,16 @@ export default [
       index("routes/$locale/index.tsx"), // "/:locale"
 
       layout("routes/$locale/require-auth.tsx", [
-        ...prefix("dashboard", [route("", "routes/$locale/dashboard/index.tsx")]),
+        ...prefix("dashboard", [
+          layout("routes/$locale/dashboard/_layout.tsx", [
+            route("", "routes/$locale/dashboard/index.tsx"),
 
-        // En el futuro:
-        // ...prefix("tables", [route("", "routes/$locale/tables/index.tsx")]),
-        // ...prefix("sectors", [route("", "routes/$locale/sectors/index.tsx")]),
+            // futuro
+            // ...prefix("tables", [
+            //   route("", "routes/$locale/dashboard/tables/index.tsx"),
+            // ]),
+          ]),
+        ]),
       ]),
 
       // /:locale/auth/*
