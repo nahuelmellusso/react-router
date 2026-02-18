@@ -3,7 +3,7 @@ import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Button, FormError, Input } from "~/components";
-import { Link, useLocation, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import type { LoginPayload } from "~/features/users/types/types";
 import { useAuth } from "~/features/users/hooks/useAuth";
@@ -20,11 +20,11 @@ export default function Login() {
   const { locale = "en" } = useParams<{ locale: string }>();
   const { mutate: login, isPending } = useAuth();
   const location = useLocation();
+
   const loginSchema = z.object({
     email: z.email(t("auth.email.invalid")),
     password: z.string().min(6, t("auth.password.invalid.min")),
   });
-
   const {
     register,
     handleSubmit,

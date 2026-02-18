@@ -22,9 +22,9 @@ const Button = ({
   disabled,
   isLoading = false,
 }: buttonProps) => {
-  const baseClasses = `flex items-center px-2 py-1 bg-white border-violet-800 border-2 text-gray-900 text-xs rounded-full w-full ${isLoading ? "justify-center" : "justify-between"} cursor-pointer`;
+  const baseClasses = `flex items-center px-2 py-1 bg-white border-violet-800 border-2 text-gray-900 text-xs rounded-full  ${isLoading ? "justify-center" : "justify-between"} cursor-pointer  whitespace-nowrap`;
   return (
-    <div className="flex items-center justify-center mt-4">
+    <div className="inline-flex items-center justify-center gap-2">
       <button
         type={type}
         disabled={disabled}
@@ -37,7 +37,7 @@ const Button = ({
         ) : (
           <>
             {text}
-            {Icon && <Icon />}
+            {Icon && <Icon className="w-4 h-4 ml-2 shrink-0" />}
           </>
         )}
       </button>
