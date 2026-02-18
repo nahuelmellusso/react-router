@@ -14,11 +14,20 @@ export function useCurrentUser() {
   const DEV_FAKE_AUTH = import.meta.env.DEV && import.meta.env.VITE_FAKE_AUTH === "true";
 
   if (DEV_FAKE_AUTH) {
-    return {
+    const devUser: CurrentUser = {
       id: 1,
       name: "Dev User",
       email: "dev@local.test",
       avatarUrl: null,
+    };
+
+    return {
+      data: devUser as CurrentUser | null,
+      isLoading: false,
+      isError: false,
+      error: null as unknown,
+      isFetching: false,
+      refetch: async () => ({ data: devUser }),
     };
   }
 
@@ -39,7 +48,6 @@ export function useCurrentUser() {
     retry: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-
     staleTime: 60_000,
   });
 }
