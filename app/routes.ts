@@ -15,6 +15,13 @@ export default [
           layout("routes/$locale/dashboard/_layout.tsx", [
             route("", "routes/$locale/dashboard/index.tsx"),
 
+            ...prefix("users", [
+              route("", "routes/$locale/dashboard/users/index.tsx"),
+              /*route("new", "routes/$locale/dashboard/users/new.tsx"),
+              route(":id", "routes/$locale/dashboard/users/$id.tsx"),
+              route(":id/edit", "routes/$locale/dashboard/users/$id.edit.tsx"),*/
+            ]),
+
             // futuro
             // ...prefix("tables", [
             //   route("", "routes/$locale/dashboard/tables/index.tsx"),
