@@ -1,34 +1,68 @@
 {
-  "app.title": "Championship",
-  "nav.home": "Inicio",
-  "auth.register": "Registrarse",
-  "auth.singIn": "Iniciar sesión",
-  "auth.singUp": "Registrarse",
-  "auth.createAccount": "Crea tu cuenta",
-  "auth.email.placeholder": "Ingresa tu correo electrónico",
-  "auth.password.placeholder": "Ingresa tu contraseña",
-  "auth.password.forgot": "Olvidé mi contraseña",
-  "auth.name": "Nombre",
-  "auth.password": "Contraseña",
-  "auth.email": "Correo electrónico",
-  "auth.email.invalid": "Correo electrónico inválido",
-  "auth.password.invalid.min": "La contraseña debe tener al menos 6 caracteres",
-  "auth.phone": "Ingresa tu número de teléfono",
-  "auth.passwordConfirm": "Confirmar contraseña",
-  "auth.passwordNotMatch": "Las contraseñas no coinciden",
-  "nav.dashboard": "Panel",
-  "dashboard.title": "Panel",
-  "dashboard.welcome": "¡Bienvenido a tu panel!",
+  "app": {
+    "title": "Championship"
+  },
+  "nav": {
+    "home": "Inicio",
+    "dashboard": "Dashboard"
+  },
+  "auth": {
+    "register": "Registrarse",
+    "singIn": "Iniciar sesión",
+    "singUp": "Crear cuenta",
+    "createAccount": "Crea tu cuenta",
+    "email": {
+      "label": "Email",
+      "placeholder": "Ingresá tu correo electrónico",
+      "invalid": "Email"
+    },
+    "password": {
+      "label": "Contraseña",
+      "placeholder": "Ingresá tu contraseña",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "invalid": {
+        "min": "La contraseña debe tener al menos 6 caracteres"
+      }
+    },
+    "name": "Nombre",
+    "phone": "Ingresá tu número de teléfono",
+    "passwordConfirm": "Confirmar contraseña",
+    "passwordNotMatch": "Las contraseñas no coinciden",
+    "lestGo": "¡Vamos!"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "¡Bienvenido a tu dashboard!",
+    "users": "Usuarios",
+    "create": "Crear",
+    "list": "Listado",
+    "settings": "Configuración",
+    "security": "Seguridad",
+    "nav": {
+      "users": "Usuarios",
+      "settings": "Configuración",
+      "tournaments": "Torneos"
+    }
+  },
   "save": "Guardar",
-  "auth.lestGo": "¡Vamos!",
-  "account.created": "Cuenta creada",
-  "account.error": "Hubo un error al crear tu cuenta",
-  "forgot.explain": "Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
-  "forgot.sendLink": "Enviarme el enlace",
-  "forgot.link.success": "Te hemos enviado un correo con instrucciones para restablecer tu contraseña.\nPor favor, revisa tu bandeja de entrada.",
-  "reset.enterNewPassword": "Crear una nueva contraseña",
-  "reset.myPassword": "Restablecer mi contraseña",
-  "reset.error": "No se pudo restablecer la contraseña. Por favor, inténtalo nuevamente.",
-  "reset.token.missing": "Token faltante",
-  "reset.success": "Tu nueva contraseña se ha creado correctamente"
+  "account": {
+    "created": "Cuenta creada",
+    "error": "Hubo un error al crear tu cuenta"
+  },
+  "forgot": {
+    "explain": "Ingresá tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+    "sendLink": "Enviarme el enlace",
+    "link": {
+      "success": "Te enviamos un email con instrucciones para restablecer tu contraseña.\nPor favor revisá tu bandeja de entrada."
+    }
+  },
+  "reset": {
+    "enterNewPassword": "Crear una nueva contraseña",
+    "myPassword": "Restablecer mi contraseña",
+    "error": "No se pudo restablecer la contraseña. Por favor intentá de nuevo.",
+    "token": {
+      "missing": "Falta el token"
+    },
+    "success": "Tu nueva contraseña se generó correctamente"
+  }
 }

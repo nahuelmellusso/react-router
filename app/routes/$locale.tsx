@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+export { loader } from "~/hooks/useI18n";
 
 export default function LocaleLayout() {
   return (

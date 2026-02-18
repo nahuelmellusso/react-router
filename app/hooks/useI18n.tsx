@@ -1,4 +1,4 @@
-import { type LoaderFunctionArgs, useRouteLoaderData } from "react-router";
+import { type LoaderFunctionArgs, useMatches } from "react-router";
 import {
   createTranslator,
   getMessages,
@@ -11,25 +11,35 @@ type LoaderData = {
   locale: Locale;
   messages: Messages;
 };
+
 export async function loader({ params }: LoaderFunctionArgs): Promise<LoaderData> {
   const l = params.locale;
   if (!isSupportedLocale(l)) {
-    // Si el locale no es válido, 404
     throw new Response("Not Found", { status: 404 });
   }
   const locale = l as Locale;
   const messages = getMessages(locale);
   return { locale, messages };
 }
+
+function isLoaderData(x: unknown): x is LoaderData {
+  return !!x && typeof x === "object" && "locale" in x && "messages" in x;
+}
+
 export function useI18n() {
-  const data = useRouteLoaderData("locale-root") as LoaderData | undefined;
+  const matches = useMatches();
+
+  const data = [...matches]
+    .reverse()
+    .map((m) => m.data)
+    .find(isLoaderData);
+
   if (!data) {
-    // Fallback por si algo falla
     return {
       locale: "en" as Locale,
       t: (k: string, f?: string) => f ?? k,
     };
   }
-  const t = createTranslator(data.messages);
-  return { locale: data.locale, t };
+
+  return { locale: data.locale, t: createTranslator(data.messages) };
 }

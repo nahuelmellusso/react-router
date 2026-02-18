@@ -1,39 +1,71 @@
 {
-  "app.title": "Championship",
-  "nav.home": "Home",
-  "auth.register": "Register",
-  "auth.singIn": "Sing In",
-  "auth.singUp": "Sign up",
-  "auth.createAccount": "Create your account",
-  "auth.email.placeholder": "Enter your email address",
-  "auth.password.placeholder": "Enter your password",
-  "auth.password.forgot": "Forgot Password",
-  "auth.name": "Name",
-  "auth.password": "Password",
-  "auth.email": "Email",
-  "auth.email.invalid": "Email",
-  "auth.password.invalid.min": "Password must be at least 6 characters",
-  "auth.phone": "Enter your phone number",
-  "auth.passwordConfirm": "Confirm your password",
-  "auth.passwordNotMatch" : "Password do not match",
-  "nav.dashboard": "Dashboard",
-  "dashboard.title": "Dashboard",
-  "dashboard.welcome": "Welcome to your dashboard!",
-  "dashboard.users": "Users",
-  "dashboard.create": "Create",
-  "dashboard.list": "List",
-  "dashboard.settings": "Settings",
-  "dashboard.security": "Security",
+  "app": {
+    "title": "Championship"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard"
+  },
+  "auth": {
+    "register": "Register",
+    "singIn": "Sing In",
+    "singUp": "Sign up",
+    "createAccount": "Create your account",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email address",
+      "invalid": "Email"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password",
+      "forgot": "Forgot Password",
+      "invalid": {
+        "min": "Password must be at least 6 characters"
+      }
+    },
+    "name": "Name",
+    "phone": "Enter your phone number",
+    "passwordConfirm": "Confirm your password",
+    "passwordNotMatch": "Password do not match",
+    "lestGo": "Let’s Go"
+  },
+  "user": {
+    "create": "Create user"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to your dashboard!",
+    "users": "Users",
+    "create": "Create",
+    "list": "List",
+    "settings": "Settings",
+    "security": "Security",
+    "nav": {
+      "users": "Users",
+      "settings": "Settings",
+      "tournaments": "Tournaments"
+    }
+  },
   "save": "Save",
-  "auth.lestGo": "Let’s Go",
-  "account.created": "Account created",
-  "account.error": "There was an error creating your account",
-  "forgot.explain": "Enter your email address and we’ll send you a link to reset your password.",
-  "forgot.sendLink" :"Send me a link",
-  "forgot.link.success": "We’ve sent you an email with instructions to reset your password.\n Please check your inbox.",
-  "reset.enterNewPassword": "Create a new password",
-  "reset.myPassword": "Reset my password",
-  "reset.error" : "Could not reset password. Please try again.",
-  "reset.token.missing": "Missing token",
-  "reset.success": "Your new password has been successfully generated"
+  "account": {
+    "created": "Account created",
+    "error": "There was an error creating your account"
+  },
+  "forgot": {
+    "explain": "Enter your email address and we’ll send you a link to reset your password.",
+    "sendLink": "Send me a link",
+    "link": {
+      "success": "We’ve sent you an email with instructions to reset your password.\n Please check your inbox."
+    }
+  },
+  "reset": {
+    "enterNewPassword": "Create a new password",
+    "myPassword": "Reset my password",
+    "error": "Could not reset password. Please try again.",
+    "token": {
+      "missing": "Missing token"
+    },
+    "success": "Your new password has been successfully generated"
+  }
 }
