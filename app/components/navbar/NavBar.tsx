@@ -7,6 +7,7 @@ import { MobileMenuDrawer } from "./MobileMenuDrawer";
 import { useAuthSession } from "~/features/users/hooks/useAuthSession";
 import logo from "~/assets/img/logo.png";
 import { useI18n } from "~/hooks/useI18n";
+import { Link } from "react-router";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -33,32 +34,32 @@ export function Navbar() {
     }
   };
 
-  const groups = useMemo(
-    () => [
-      {
-        label: t("dashboard.users"),
-        items: [
-          { label: t("dashboard.list"), to: to("/dashboard/users") },
-          { label: t("dashboard.create"), to: to("/dashboard/users/new") },
-        ],
-      },
-      {
-        label: "Torneos",
-        items: [
-          { label: t("dashboard.list"), to: to("/dashboard/tournaments") },
-          { label: t("dashboard.create"), to: to("/dashboard/tournaments/new") },
-        ],
-      },
-      {
-        label: "Settings",
-        items: [
-          { label: t("dashboard.settings"), to: to("/dashboard/settings") },
-          { label: t("dashboard.security"), to: to("/dashboard/settings/security") },
-        ],
-      },
-    ],
-    [to],
-  );
+  const groups = [
+    {
+      id: "users",
+      label: t("dashboard.nav.users"),
+      items: [
+        { label: t("dashboard.list"), to: to("/dashboard/users") },
+        { label: t("dashboard.create"), to: to("/dashboard/users/new") },
+      ],
+    },
+    {
+      id: "tournament",
+      label: t("dashboard.nav.tournaments"),
+      items: [
+        { label: t("dashboard.list"), to: to("/dashboard/tournaments") },
+        { label: t("dashboard.create"), to: to("/dashboard/tournaments/new") },
+      ],
+    },
+    {
+      id: "settings",
+      label: t("dashboard.nav.settings"),
+      items: [
+        { label: t("dashboard.settings"), to: to("/dashboard/settings") },
+        { label: t("dashboard.security"), to: to("/dashboard/settings/security") },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -67,13 +68,14 @@ export function Navbar() {
           <div className="h-14 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src={logo} alt="logo" width={50} />
-              <a href={to("/dashboard")} className="text-zinc-100 font-semibold tracking-tight">
+
+              <Link className="text-zinc-100 font-semibold tracking-tight" to={to("/dashboard")}>
                 Dashboard
-              </a>
+              </Link>
 
               <nav className="hidden lg:flex items-center gap-1 ml-2">
                 {groups.map((g) => (
-                  <NavGroup key={g.label} label={g.label} items={g.items} />
+                  <NavGroup key={g.id} label={g.label} items={g.items} />
                 ))}
               </nav>
             </div>
