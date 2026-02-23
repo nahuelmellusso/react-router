@@ -1,8 +1,9 @@
 import type { HeroIcon } from "~/components/types";
 import { Spinner } from "~/components";
+import type { ButtonTypes } from "../types";
 
 type buttonProps = {
-  type?: any;
+  type?: ButtonTypes;
   text: string;
   name?: string;
   className?: string;
@@ -10,6 +11,7 @@ type buttonProps = {
   Icon?: HeroIcon;
   disabled?: boolean;
   isLoading?: boolean;
+  fullWidth?: boolean;
 };
 
 const Button = ({
@@ -21,27 +23,26 @@ const Button = ({
   Icon,
   disabled,
   isLoading = false,
+  fullWidth = false,
 }: buttonProps) => {
-  const baseClasses = `flex items-center px-2 py-1 bg-white border-violet-800 border-2 text-gray-900 text-xs rounded-full  ${isLoading ? "justify-center" : "justify-between"} cursor-pointer  whitespace-nowrap`;
+  const baseClasses = ` ${fullWidth ? "w-full" : "w-auto"} inline-flex items-center px-2 py-1 bg-white border-violet-800 border-2 text-gray-900 text-xs rounded-full  ${isLoading ? "justify-center" : "justify-between"} cursor-pointer  whitespace-nowrap`;
   return (
-    <div className="inline-flex items-center justify-center gap-2">
-      <button
-        type={type}
-        disabled={disabled}
-        name={name}
-        className={`${baseClasses} ${className ?? ""}`}
-        onClick={onClick}
-      >
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <>
-            {text}
-            {Icon && <Icon className="w-4 h-4 ml-2 shrink-0" />}
-          </>
-        )}
-      </button>
-    </div>
+    <button
+      type={type}
+      disabled={disabled}
+      name={name}
+      className={`${baseClasses} ${className ?? ""}`}
+      onClick={onClick}
+    >
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {text}
+          {Icon && <Icon className="w-4 h-4 ml-2 shrink-0" />}
+        </>
+      )}
+    </button>
   );
 };
 
