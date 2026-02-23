@@ -1,4 +1,3 @@
-import { useI18n } from "~/routes/$locale";
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -11,6 +10,7 @@ import { FormError } from "~/components";
 import { showToast } from "~/helpers/showToast";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
+import { useI18n } from "~/hooks/useI18n";
 
 const RegisterForm = () => {
   const { t } = useI18n();
