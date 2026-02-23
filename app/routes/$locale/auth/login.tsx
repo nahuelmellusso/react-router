@@ -111,8 +111,10 @@ export default function Login() {
             Icon={ChevronIcon}
             type={"submit"}
             name="save-user-bttn"
+            fullWidth
             disabled={isPending}
             isLoading={isPending}
+            className={"mt-3"}
           />
 
           <div className="flex items-center justify-center mt-2">
