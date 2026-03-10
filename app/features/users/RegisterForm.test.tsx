@@ -5,10 +5,13 @@ import { navigateMock, showToastMock } from "../../../vitest.setup";
 import type { CreateUserPayload } from "~/features/users/types/types";
 const mutateMock = vi.fn<(payload: CreateUserPayload) => void>();
 
-// 👇 usa el MISMO path que en RegisterForm
+vi.mock("~/hooks/useI18n", () => ({
+  useI18n: () => ({
+    t: (key: string) => key,
+  }),
+}));
 vi.mock("~/hooks/useCreateUser", () => ({
   useCreateUser: () => ({
-    // simulamos el mutate de react-query:
     mutate: (
       payload: CreateUserPayload,
       options?: { onSuccess?: () => void; onError?: (err: unknown) => void },
