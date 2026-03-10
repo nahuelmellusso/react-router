@@ -31,8 +31,23 @@
     "lestGo": "Let’s Go"
   },
   "user": {
-    "create": "Create user"
+    "name": "Name",
+    "phone": "Phone number",
+    "create": "Create user",
+    "edit": "Edit user",
+    "primaryPosition": "Primary position",
+    "secondaryPosition": "Secondary position",
+    "namePlaceHolder": "Enter your Name",
+    "roles": {
+      "gk": "Goal keeper",
+      "df": "Defender",
+      "md": "Mid field",
+      "fw": "Forward"
+    },
+    "profileImage": "Profile image",
+    "generatePassword" : "Generate password"
   },
+
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome to your dashboard!",
