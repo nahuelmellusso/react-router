@@ -1,9 +1,8 @@
 import { Navigate, Outlet, useLocation, useParams } from "react-router-dom";
 import { useCurrentUser } from "~/features/users/hooks/useCurrentUser";
-import { HttpError } from "~/helpers/HttpError";
 
 export default function RequireAuthLayout() {
-  const { data: user, isLoading, isError, error } = useCurrentUser();
+  const { data: user, isLoading } = useCurrentUser();
   const { locale } = useParams();
   const location = useLocation();
   const safeLocale = locale ?? "en";
@@ -11,7 +10,7 @@ export default function RequireAuthLayout() {
     return <div className="p-4">Loading...</div>;
   }
 
-  const status = error instanceof HttpError ? error.status : undefined;
+  /*return <Outlet />;*/
 
   const isLogin = location.pathname.endsWith("/auth/login");
 
