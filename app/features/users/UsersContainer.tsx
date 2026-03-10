@@ -6,18 +6,75 @@ import { Drawer } from "~/components";
 import { useState } from "react";
 import { useFetchUsers } from "~/features/users/hooks/useFetchUsers";
 import { TableSkeleton } from "~/components/skeleton/TableSkeleton";
+import { useId } from "react";
 import type { User } from "~/features/users/types/types";
+import UserForm, { type UserFormValues } from "~/features/users/UserForm";
+import { useNavigate, useParams } from "react-router";
+import { showToast } from "~/helpers/showToast";
+import { useCreateUser } from "~/hooks/useCreateUser";
+import { useFetchUser } from "~/features/users/hooks/useFetchUser";
+import { getApiErrorMessage } from "~/helpers/getApiErrorMessage";
+import { useUpdateUser } from "~/features/users/hooks/useUpdateUser";
 
 export default function UsersContainer() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const formId = useId();
   const [open, setOpen] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
+  const [localSelectedUser, setLocalSelectedUser] = useState<User | null>(null);
+  const { mutate: createUser, isPending: createPending } = useCreateUser();
+  const { mutate: updateUser, isPending: updatePending } = useUpdateUser();
   const usersQuery = useFetchUsers();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const userId = id ? Number(id) : undefined;
 
+  const userQuery = useFetchUser(userId, {
+    enabled: !!userId,
+  });
+
+  const selectedUser = userId != null ? (userQuery.data ?? null) : localSelectedUser;
+  const isEditMode = userId != null || localSelectedUser != null;
+  const isDrawerOpen = userId != null ? true : open;
+  const isPending = createPending || updatePending;
+  const onSubmit = (data: UserFormValues) => {
+    const onError = (err: unknown) => {
+      showToast({
+        type: "error",
+        message: getApiErrorMessage(err, t("account.error")),
+      });
+    };
+
+    if (isEditMode && selectedUser) {
+      updateUser(
+        { id: selectedUser.id, data },
+        {
+          onSuccess: () => {
+            showToast({
+              type: "success",
+              message: t("user.updated"),
+            });
+            setOpen(false);
+          },
+          onError,
+        },
+      );
+
+      return;
+    }
+
+    createUser(data, {
+      onSuccess: () => {
+        showToast({
+          type: "success",
+          message: t("account.created"),
+        });
+        navigate(`/${locale}/auth/login`);
+      },
+      onError,
+    });
+  };
   const handleEdit = (u: User) => {
-    setSelectedUser(u);
+    setLocalSelectedUser(u);
     setOpen(true);
   };
 
@@ -27,44 +84,30 @@ export default function UsersContainer() {
         <Button text={t("user.create")} Icon={PlusIcon} onClick={() => setOpen(true)} />
       </div>
       <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
-        title="Create user"
+        open={isDrawerOpen}
+        onClose={() => {
+          setOpen(false);
+          setLocalSelectedUser(null);
+        }}
+        title={isEditMode ? t("user.edit") : t("user.create")}
         description="Fill the form and save."
-        isBusy={saving}
+        isBusy={isPending}
         size="md"
         footer={
           <div className="flex justify-end gap-2">
             <button
               className="rounded-lg px-3 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-white/10"
               onClick={() => setOpen(false)}
-              disabled={saving}
+              disabled={isPending}
             >
               Cancel
             </button>
-            <Button text={"Save"} />
-            {/*<button
-              className="rounded-lg px-3 py-2 text-sm bg-zinc-900 text-white dark:bg-white dark:text-black disabled:opacity-50"
-              onClick={async () => {
-                setSaving(true);
-                try {
-                  // await createUser(...)
-                } finally {
-                  setSaving(false);
-                  setOpen(false);
-                }
-              }}
-              disabled={saving}
-            >
-              {saving ? "Saving..." : "Save"}
-            </button>*/}
+            <Button text={"Save"} isLoading={isPending} type={"submit"} form={formId} />
           </div>
         }
       >
-        {/* form goes here */}
         <div className="space-y-3">
-          <div className="text-sm text-zinc-500 dark:text-zinc-400">Your form fields here…</div>
-          <pre className="text-xs opacity-70">{JSON.stringify(selectedUser, null, 2)}</pre>
+          <UserForm id={formId} user={selectedUser} onSubmit={onSubmit} />
         </div>
       </Drawer>
       {usersQuery.isLoading ? (
@@ -74,7 +117,7 @@ export default function UsersContainer() {
           {usersQuery.error?.message ?? "Failed to load users"}
         </div>
       ) : (
-        <UsersTable users={usersQuery.data?.data ?? []} onEdit={() => {}} />
+        <UsersTable users={usersQuery.data?.data ?? []} onEdit={handleEdit} />
       )}
     </>
   );
