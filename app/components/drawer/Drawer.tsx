@@ -7,13 +7,8 @@ type DrawerProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
   children: React.ReactNode;
-
-  // prevents closing (e.g. while saving)
   isBusy?: boolean;
-
-  // width on >= sm, mobile always full width
   size?: "sm" | "md" | "lg";
-
   footer?: React.ReactNode;
 };
 

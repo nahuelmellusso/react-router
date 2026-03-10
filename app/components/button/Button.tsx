@@ -12,6 +12,7 @@ type buttonProps = {
   disabled?: boolean;
   isLoading?: boolean;
   fullWidth?: boolean;
+  form?: string;
 };
 
 const Button = ({
@@ -24,6 +25,7 @@ const Button = ({
   disabled,
   isLoading = false,
   fullWidth = false,
+  form,
 }: buttonProps) => {
   const baseClasses = ` ${fullWidth ? "w-full" : "w-auto"} inline-flex items-center px-2 py-1 bg-white border-violet-800 border-2 text-gray-900 text-xs rounded-full  ${isLoading ? "justify-center" : "justify-between"} cursor-pointer  whitespace-nowrap`;
   return (
@@ -33,6 +35,7 @@ const Button = ({
       name={name}
       className={`${baseClasses} ${className ?? ""}`}
       onClick={onClick}
+      form={form}
     >
       {isLoading ? (
         <Spinner />
