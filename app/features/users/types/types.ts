@@ -19,8 +19,9 @@ export type User = {
   id: string | number;
   name: string;
   email: string;
-  avatarUrl?: string | null;
-  position: string;
+  avatarFilename?: string | null;
+  primaryPosition: string;
+  secondaryPosition: string;
 };
 
 export type UsersQueryParams = {
