@@ -3,30 +3,11 @@ import { apiFetch } from "~/helpers/apiFetch";
 import { HttpError } from "~/helpers/HttpError";
 import type { TenantContextResponse } from "~/features/tenant/types";
 
-export type CurrentUser = {
-  id: string | number;
-  name: string;
-  email: string;
-  avatarUrl?: string | null;
-};
-
-export type AuthSessionResponse = {
-  user: CurrentUser;
-  tenant: TenantContextResponse["tenant"];
-  domain: TenantContextResponse["domain"];
-};
-
-export function useCurrentUser() {
+export function useTenantContext() {
   const DEV_FAKE_AUTH = import.meta.env.DEV && import.meta.env.VITE_FAKE_AUTH === "true";
 
   if (DEV_FAKE_AUTH) {
-    const devSession: AuthSessionResponse = {
-      user: {
-        id: 1,
-        name: "Dev User",
-        email: "dev@local.test",
-        avatarUrl: null,
-      },
+    const devTenant: TenantContextResponse = {
       tenant: {
         id: 1,
         name: "Dev Championship",
@@ -41,32 +22,31 @@ export function useCurrentUser() {
     };
 
     return {
-      data: devSession as AuthSessionResponse | null,
+      data: devTenant,
       isLoading: false,
       isError: false,
       error: null as unknown,
       isFetching: false,
-      refetch: async () => ({ data: devSession }),
+      refetch: async () => ({ data: devTenant }),
     };
   }
 
   return useQuery({
-    queryKey: ["current-user"],
+    queryKey: ["tenant-context"],
     queryFn: async () => {
       try {
-        const doRequest = apiFetch({ method: "GET", url: "auth/me" });
-        return (await doRequest()) as AuthSessionResponse;
+        const doRequest = apiFetch({ method: "GET", url: "tenant-context" });
+        return (await doRequest()) as TenantContextResponse;
       } catch (e) {
-        if (e instanceof HttpError && (e.status === 401 || e.status === 403)) {
+        if (e instanceof HttpError && (e.status === 400 || e.status === 404)) {
           return null;
         }
         throw e;
       }
     },
-
     retry: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    staleTime: 60_000,
+    staleTime: 5 * 60_000,
   });
 }
