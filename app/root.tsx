@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { useCurrentUser } from "~/features/users/hooks/useCurrentUser";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,12 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+function AppBootstrapRuntime() {
+  useCurrentUser();
+
+  return null;
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -37,7 +44,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <AppBootstrapRuntime />
+          {children}
+        </QueryClientProvider>
         <Toaster
           position="top-right"
           toastOptions={{
@@ -72,11 +82,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container mx-auto p-4 pt-16">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full overflow-x-auto p-4">
           <code>{stack}</code>
         </pre>
       )}

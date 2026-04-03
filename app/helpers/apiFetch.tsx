@@ -13,6 +13,43 @@ export type ApiFetchProps = {
   onResponse?: () => void;
 };
 
+function getResolvedBaseURL() {
+  const configuredBaseURL = import.meta.env.VITE_API_BASE_URL?.trim();
+
+  if (!configuredBaseURL || configuredBaseURL === "same-origin") {
+    return "";
+  }
+
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    const isLocalHost = hostname === "localhost" || hostname === "127.0.0.1";
+
+    if (!isLocalHost && configuredBaseURL.includes("localhost")) {
+      return "";
+    }
+  }
+
+  return configuredBaseURL.replace(/\/+$/, "");
+}
+
+function getApiRoot() {
+  const baseURL = getResolvedBaseURL();
+
+  if (!baseURL) {
+    return "/api/v1";
+  }
+
+  if (baseURL.endsWith("/api/v1")) {
+    return baseURL;
+  }
+
+  if (baseURL.endsWith("/api")) {
+    return `${baseURL}/v1`;
+  }
+
+  return `${baseURL}/api/v1`;
+}
+
 export const apiFetch =
   ({
     method = "GET",
@@ -29,14 +66,15 @@ export const apiFetch =
       beforeResponse();
     }
 
-    const baseURL = import.meta.env.VITE_API_BASE_URL;
-
+    const apiRoot = getApiRoot();
+    const normalizedUrl = url.replace(/^\/+/, "");
     const urlSearchParams = queryParams ? new URLSearchParams(queryParams) : null;
+    const requestUrl = `${apiRoot}/${normalizedUrl}${queryParams ? `?${urlSearchParams}` : ""}`;
 
     try {
       const response = await axios({
         method,
-        url: `${baseURL}/${url}${queryParams ? `?${urlSearchParams}` : ""}`,
+        url: requestUrl,
         withCredentials: true,
         headers: {
           Accept: "application/json",
