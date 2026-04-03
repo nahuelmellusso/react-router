@@ -12,27 +12,17 @@ type CommonProps<V extends string | number> = {
   options: SelectOption<V>[];
   value?: V | null;
   onChange?: (value: V | null, option?: SelectOption<V>) => void;
-
-  // multi
   multiple?: boolean;
   values?: V[];
   onChangeMany?: (value: V[], options: SelectOption<V>[]) => void;
-
   placeholder?: string;
   disabled?: boolean;
-
-  /** container classes (like your Input wrapper className) */
   className?: string;
-  /** button/input-like classes */
   buttonClassName?: string;
-  /** dropdown panel classes */
   menuClassName?: string;
-
   searchable?: boolean;
   searchPlaceholder?: string;
   maxMenuHeightClassName?: string;
-
-  /** left icon (same usage as Input) */
   children?: ReactNode;
 };
 
@@ -49,13 +39,13 @@ function isMulti<V extends string | number>(
 export function Select<V extends string | number = string>(props: CommonProps<V>) {
   const {
     options,
-    placeholder = "Select…",
+    placeholder = "Select...",
     disabled = false,
     className,
     buttonClassName,
     menuClassName,
     searchable = false,
-    searchPlaceholder = "Search…",
+    searchPlaceholder = "Search...",
     maxMenuHeightClassName = "max-h-72",
     children,
   } = props;
@@ -127,7 +117,7 @@ export function Select<V extends string | number = string>(props: CommonProps<V>
       const next = exists ? current.filter((v) => v !== opt.value) : [...current, opt.value];
       const nextOptions = options.filter((o) => next.includes(o.value));
       props.onChangeMany?.(next, nextOptions);
-      return; // keep open on multi
+      return;
     }
 
     props.onChange?.(opt.value, opt);
@@ -142,34 +132,30 @@ export function Select<V extends string | number = string>(props: CommonProps<V>
     props.onChangeMany?.(next, nextOptions);
   };
 
-  const leftPad = children ? "pl-8" : "pl-3";
+  const leftPad = children ? "pl-10" : "pl-3";
 
   return (
     <div ref={rootRef} className={cn("relative", className)}>
-      {/* Trigger (styled like your Input: underline only) */}
       <button
         type="button"
         onClick={toggle}
         disabled={disabled}
         className={cn(
-          "relative block w-full bg-transparent border-b border-gray-200 py-2 px-3 text-sm outline-none text-gray-900",
-          "dark:border-white-700 dark:text-zinc-100",
-          "focus:border-violet-500 transition-colors",
-          disabled && "opacity-50 cursor-not-allowed",
+          "relative block h-11 w-full rounded-xl border border-slate-200 bg-white/80 px-3 text-sm text-slate-900 outline-none transition-all",
+          "shadow-[0_10px_30px_-22px_rgba(15,23,42,0.45)] focus:border-sky-300 focus:bg-white focus:ring-4 focus:ring-sky-500/10",
+          disabled && "cursor-not-allowed opacity-50",
           buttonClassName,
         )}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        {/* Left icon (like Input) */}
         {children && (
-          <div className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-900 pointer-events-none dark:text-zinc-200">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
             {children}
           </div>
         )}
 
         <div className={cn("flex items-center justify-between gap-2", leftPad)}>
-          {/* Value area */}
           <div className="min-w-0 flex-1 text-left">
             {isMulti(props) ? (
               hasSelection ? (
@@ -177,7 +163,7 @@ export function Select<V extends string | number = string>(props: CommonProps<V>
                   {selectedOptions.map((opt) => (
                     <span
                       key={String(opt.value)}
-                      className="inline-flex items-center gap-1 rounded-md bg-zinc-100 px-2 py-1 text-xs text-zinc-700 dark:bg-white/10 dark:text-zinc-200"
+                      className="inline-flex items-center gap-1 rounded-xl bg-slate-100 px-2 py-1 text-xs text-slate-700"
                     >
                       {opt.label}
                       <span
@@ -188,65 +174,62 @@ export function Select<V extends string | number = string>(props: CommonProps<V>
                           e.stopPropagation();
                           removeChip(opt.value);
                         }}
-                        className="text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                        className="text-slate-400 hover:text-slate-900"
                         aria-label={`Remove ${opt.label}`}
                         title="Remove"
                       >
-                        ×
+                        x
                       </span>
                     </span>
                   ))}
                 </div>
               ) : (
-                <span className="text-gray-400">{placeholder}</span>
+                <span className="text-slate-400">{placeholder}</span>
               )
             ) : hasSelection ? (
               <span className="truncate">{selectedOptions[0]?.label}</span>
             ) : (
-              <span className="text-gray-400">{placeholder}</span>
+              <span className="text-slate-400">{placeholder}</span>
             )}
           </div>
 
-          {/* Controls */}
           <div className="flex items-center gap-2">
             {hasSelection && !disabled && (
               <span
                 role="button"
                 tabIndex={0}
                 onClick={clear}
-                className="rounded px-1 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-white/10 dark:hover:text-white"
+                className="rounded-md px-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
                 aria-label="Clear"
                 title="Clear"
               >
-                ×
+                x
               </span>
             )}
-            <span className={cn("text-xs transition-transform", open && "rotate-180")}>▾</span>
+            <span className={cn("text-xs text-slate-400 transition-transform", open && "rotate-180")}>
+              v
+            </span>
           </div>
         </div>
       </button>
 
-      {/* Dropdown */}
       {open && (
         <div
           className={cn(
-            "absolute z-50 mt-2 w-full overflow-hidden rounded-lg border shadow-lg",
-            "border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950",
+            "absolute z-50 mt-2 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-[0_24px_80px_-40px_rgba(15,23,42,0.55)] backdrop-blur",
             menuClassName,
           )}
           role="listbox"
         >
           {searchable && (
-            <div className="p-2 border-b border-zinc-200 dark:border-zinc-800">
-              {/* search input also underline style */}
+            <div className="border-b border-slate-100 p-2">
               <div className="relative">
                 <input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   className={cn(
-                    "block w-full bg-transparent border-b border-gray-200 py-2 px-3 text-sm outline-none text-gray-900",
-                    "dark:border-gray-700 dark:text-zinc-100",
-                    "focus:border-violet-500 transition-colors",
+                    "block h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none transition-all",
+                    "focus:border-sky-300 focus:bg-white focus:ring-4 focus:ring-sky-500/10",
                   )}
                   placeholder={searchPlaceholder}
                   autoFocus
@@ -257,7 +240,7 @@ export function Select<V extends string | number = string>(props: CommonProps<V>
 
           <div className={cn("overflow-auto", maxMenuHeightClassName)}>
             {filtered.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-zinc-500">No results</div>
+              <div className="px-4 py-3 text-sm text-slate-500">No results</div>
             ) : (
               filtered.map((opt) => {
                 const selected = valueSet.has(opt.value);
@@ -269,16 +252,16 @@ export function Select<V extends string | number = string>(props: CommonProps<V>
                     onClick={() => selectOption(opt)}
                     disabled={opt.disabled}
                     className={cn(
-                      "w-full px-3 py-2 text-left text-sm flex items-center justify-between gap-2",
-                      "hover:bg-zinc-100 dark:hover:bg-white/10",
-                      selected && "bg-zinc-100 dark:bg-white/10",
-                      opt.disabled && "opacity-50 cursor-not-allowed",
+                      "flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-sm transition",
+                      "hover:bg-slate-50",
+                      selected && "bg-sky-50 text-sky-700",
+                      opt.disabled && "cursor-not-allowed opacity-50",
                     )}
                     role="option"
                     aria-selected={selected}
                   >
                     <span className="truncate">{opt.label}</span>
-                    {selected && <span className="text-xs">✓</span>}
+                    {selected && <span className="text-xs">?</span>}
                   </button>
                 );
               })

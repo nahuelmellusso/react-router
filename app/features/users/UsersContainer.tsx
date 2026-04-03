@@ -1,12 +1,10 @@
 import UsersTable from "~/features/users/UsersTable";
-import { Button } from "~/components";
+import { Button, Card, Drawer } from "~/components";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useI18n } from "~/hooks/useI18n";
-import { Drawer } from "~/components";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useFetchUsers } from "~/features/users/hooks/useFetchUsers";
 import { TableSkeleton } from "~/components/skeleton/TableSkeleton";
-import { useId } from "react";
 import type { User } from "~/features/users/types/types";
 import UserForm, { type UserFormValues } from "~/features/users/UserForm";
 import { useNavigate, useParams } from "react-router";
@@ -36,6 +34,7 @@ export default function UsersContainer() {
   const isEditMode = userId != null || localSelectedUser != null;
   const isDrawerOpen = userId != null ? true : open;
   const isPending = createPending || updatePending;
+
   const onSubmit = (data: UserFormValues) => {
     const onError = (err: unknown) => {
       showToast({
@@ -73,6 +72,7 @@ export default function UsersContainer() {
       onError,
     });
   };
+
   const handleEdit = (u: User) => {
     setLocalSelectedUser(u);
     setOpen(true);
@@ -80,9 +80,24 @@ export default function UsersContainer() {
 
   return (
     <>
-      <div className={"my-2 text-right"}>
+      <div className="mb-5 flex flex-col gap-4 rounded-[32px] border border-white/60 bg-white/72 p-6 shadow-[0_24px_80px_-45px_rgba(15,23,42,0.38)] backdrop-blur sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Team management
+          </p>
+          <div>
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
+              {t("dashboard.nav.users")}
+            </h1>
+            <p className="text-sm text-slate-500">
+              Review players, update profiles and keep roster information organized.
+            </p>
+          </div>
+        </div>
+
         <Button text={t("user.create")} Icon={PlusIcon} onClick={() => setOpen(true)} />
       </div>
+
       <Drawer
         open={isDrawerOpen}
         onClose={() => {
@@ -96,13 +111,13 @@ export default function UsersContainer() {
         footer={
           <div className="flex justify-end gap-2">
             <button
-              className="rounded-lg px-3 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-white/10"
+              className="rounded-xl px-4 py-2.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
               onClick={() => setOpen(false)}
               disabled={isPending}
             >
               Cancel
             </button>
-            <Button text={"Save"} isLoading={isPending} type={"submit"} form={formId} />
+            <Button text="Save" isLoading={isPending} type="submit" form={formId} />
           </div>
         }
       >
@@ -110,12 +125,15 @@ export default function UsersContainer() {
           <UserForm id={formId} user={selectedUser} onSubmit={onSubmit} />
         </div>
       </Drawer>
+
       {usersQuery.isLoading ? (
         <TableSkeleton rows={8} cols={3} />
       ) : usersQuery.isError ? (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-          {usersQuery.error?.message ?? "Failed to load users"}
-        </div>
+        <Card className="border-red-100 bg-red-50/80">
+          <div className="text-sm text-red-700">
+            {usersQuery.error?.message ?? "Failed to load users"}
+          </div>
+        </Card>
       ) : (
         <UsersTable users={usersQuery.data?.data ?? []} onEdit={handleEdit} />
       )}

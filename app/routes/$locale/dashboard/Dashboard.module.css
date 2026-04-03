@@ -1,3 +1,35 @@
+.shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(45, 212, 191, 0.18), transparent 24%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+}
+
 .layout {
-  background: white;
+  min-height: 100vh;
+  flex: 1;
+  padding: 1rem;
+}
+
+.content {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  padding: 1rem 0 2rem;
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .layout {
+    padding: 1.5rem 2rem;
+  }
+
+  .content {
+    padding: 0;
+  }
 }

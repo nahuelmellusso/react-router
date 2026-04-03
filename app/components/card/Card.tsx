@@ -28,22 +28,13 @@ export default function Card({
   return (
     <div
       className={cn(
-        "rounded-xl",
-        "border border-zinc-200 dark:border-zinc-800",
-        "bg-white dark:bg-zinc-900",
-        "shadow-sm",
+        "overflow-hidden rounded-[28px] border border-white/60 bg-white/85 shadow-[0_24px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur",
         className,
       )}
     >
       {(title || actions) && (
-        <div
-          className={cn(
-            "flex items-center justify-between",
-            "border-b border-zinc-200 dark:border-zinc-800",
-            "px-4 py-3",
-          )}
-        >
-          <div className="font-semibold text-zinc-900 dark:text-zinc-100">{title}</div>
+        <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
+          <div className="font-semibold text-slate-900">{title}</div>
 
           {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>

@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { showToast } from "~/helpers/showToast";
 import { useI18n } from "~/hooks/useI18n";
+import { cn } from "~/utils/utils";
 
 export default function Login() {
   const { t } = useI18n();
@@ -67,13 +68,11 @@ export default function Login() {
     });
   };
 
-  const ChevronIcon = () => (
-    <ChevronRightIcon className="h-5 w-5 text-gray-400 text-violet-800" aria-hidden="true" />
-  );
+  const ChevronIcon = () => <ChevronRightIcon className="h-5 w-5 text-slate-400" aria-hidden="true" />;
 
   return (
-    <div className="relative bg-white bg-opacity-70 shadow-md rounded-lg m-2 p-4">
-      <div className="absolute inset-0 bg-white rounded-lg"></div>
+    <div className="relative m-2 rounded-[28px] border border-white/60 bg-white/85 p-4 shadow-[0_24px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur">
+      <div className="absolute inset-0 rounded-[28px] bg-white/70"></div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative p-4">
           <div>
@@ -83,7 +82,7 @@ export default function Login() {
               placeholder={t("auth.email.placeholder")}
               {...register("email")}
             >
-              <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <EnvelopeIcon className="h-5 w-5 text-slate-400" aria-hidden="true" />
             </Input>
             <FormError error={errors.email} />
           </div>
@@ -96,12 +95,12 @@ export default function Login() {
               minLength={6}
               {...register("password")}
             >
-              <KeyIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <KeyIcon className="h-5 w-5 text-slate-400" aria-hidden="true" />
             </Input>
             <FormError error={errors.password} />
           </div>
           <div className="mt-4 text-right">
-            <Link to={`/${locale}/auth/forgot-password`} className="text-gray-900 text-xs">
+            <Link to={`/${locale}/auth/forgot-password`} className="text-xs font-medium text-slate-600 hover:text-slate-900">
               {t("auth.password.forgot")}
             </Link>
           </div>
@@ -117,13 +116,18 @@ export default function Login() {
             className={"mt-3"}
           />
 
-          <div className="flex items-center justify-center mt-2">
+          <div className="mt-2 flex items-center justify-center">
             <Link
               to={`/${locale}/auth/register`}
-              className="flex items-center px-2 py-1 bg-white border-violet-800 border-2 text-gray-900 text-xs rounded-full w-full justify-between"
+              className={cn(
+                "inline-flex h-11 w-full items-center justify-between gap-2 rounded-xl border px-4 text-sm font-semibold transition-all duration-200",
+                "border-slate-200 bg-white/90 text-slate-700 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.45)]",
+                "hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white hover:text-slate-950",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/30",
+              )}
             >
-              {t("auth.singUp")}
-              <UserPlusIcon className="h-5 w-5 text-gray-400 text-violet-800" aria-hidden="true" />
+              <span>{t("auth.singUp")}</span>
+              <UserPlusIcon className="h-5 w-5 shrink-0 text-slate-400" aria-hidden="true" />
             </Link>
           </div>
         </div>

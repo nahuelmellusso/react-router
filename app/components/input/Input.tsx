@@ -19,7 +19,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={`relative ${className}`}>
         {children && (
-          <div className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-900 pointer-events-none">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
             {children}
           </div>
         )}
@@ -27,8 +27,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={cn(
-            "block w-full bg-transparent border-b border-gray-200 py-2 px-3 text-sm placeholder-gray-400 outline-none pl-8",
-            "text-gray-900 dark:text-white",
+            "block h-11 w-full rounded-xl border border-slate-200 bg-white/80 px-3 text-sm text-slate-900 shadow-[0_10px_30px_-22px_rgba(15,23,42,0.45)] outline-none transition-all",
+            "placeholder:text-slate-400 focus:border-sky-300 focus:bg-white focus:ring-4 focus:ring-sky-500/10",
+            children ? "pl-10" : "",
             inputClassName,
           )}
           {...rest}

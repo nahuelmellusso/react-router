@@ -21,20 +21,20 @@ export function FormField({
   className,
 }: FormFieldProps) {
   return (
-    <div className={cn("space-y-1", className)}>
+    <div className={cn("space-y-2", className)}>
       {label && (
         <label
           htmlFor={htmlFor}
-          className="block text-sm font-medium text-gray-700 dark:text-zinc-200"
+          className="block text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
         >
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="ml-1 text-red-500">*</span>}
         </label>
       )}
 
       {children}
 
-      {hint && !error && <p className="text-xs text-gray-500 dark:text-zinc-400">{hint}</p>}
+      {hint && !error && <p className="text-xs text-slate-500">{hint}</p>}
 
       {error && <p className="text-xs text-red-500">{error}</p>}
     </div>

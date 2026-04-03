@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateUser } from "~/hooks/useCreateUser";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Button, Input } from "~/components";
-import { CheckIcon, EnvelopeIcon, KeyIcon, UserIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, EnvelopeIcon, KeyIcon, UserIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { FormError } from "~/components";
 import { showToast } from "~/helpers/showToast";
 import { useNavigate, useParams } from "react-router";
@@ -108,7 +108,7 @@ const RegisterForm = () => {
       </div>
       <div className="mt-2">
         <Input id="phone" type="phone" placeholder={t("auth.phone")} {...register("phone")}>
-          <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+          <PhoneIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
         </Input>
         <FormError error={errors.phone} />
       </div>
@@ -134,14 +134,16 @@ const RegisterForm = () => {
         </Input>
         <FormError error={errors.passwordConfirm} />
       </div>
-      <Button
-        text={t("auth.lestGo")}
-        Icon={ChevronIcon}
-        type={"submit"}
-        name="save-user-bttn"
-        disabled={isPending}
-        isLoading={isPending}
-      />
+      <div className="mt-5 text-right">
+        <Button
+          text={t("auth.lestGo")}
+          Icon={ChevronIcon}
+          type={"submit"}
+          name="save-user-bttn"
+          disabled={isPending}
+          isLoading={isPending}
+        />
+      </div>
     </form>
   );
 };

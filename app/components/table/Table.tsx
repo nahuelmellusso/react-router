@@ -7,49 +7,48 @@ export type TableProps<T> = {
   isLoading?: boolean;
   emptyText?: string;
 };
+
 export default function Table<T>({
   columns,
   data,
   rowKey,
-  /*isLoading,
-  emptyText = "No results",*/
+  emptyText = "No data available yet.",
 }: TableProps<T>) {
-  /* if (isLoading) return <div className="p-4">Loading...</div>;
-
-  if (!data.length) {
-    return <div className="p-4 text-sm text-zinc-500">{emptyText}</div>;
-  }*/
-
-  const rowClass =
-    "odd:bg-white even:bg-zinc-50 dark:odd:bg-zinc-900 dark:even:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700";
   return (
-    <div className="overflow-x-auto rounded-lg">
-      <table className={rowClass}>
-        <thead className="bg-black text-white">
-          <tr>
-            {columns.map((column, i) => (
-              <th className="px-4 py-3 text-left font-semibold" key={i}>
-                {column.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
-          {data.map((row, rIdx) => (
-            <tr
-              key={rowKey ? rowKey(row) : rIdx}
-              className="odd:bg-white even:bg-zinc-50 dark:odd:bg-zinc-900 dark:even:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-            >
-              {columns.map((c, cIdx) => (
-                <td key={cIdx} className={`px-4 py-3 ${c.className ?? ""}`}>
-                  {c.cell ? c.cell(row) : c.accessorKey ? String(row[c.accessorKey] ?? "") : null}
-                </td>
+    <div className="overflow-hidden rounded-[28px] border border-white/60 bg-white/85 shadow-[0_24px_80px_-42px_rgba(15,23,42,0.45)] backdrop-blur">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-slate-700">
+          <thead className="bg-slate-50/80 text-slate-500">
+            <tr>
+              {columns.map((column, i) => (
+                <th
+                  className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-[0.18em]"
+                  key={i}
+                >
+                  {column.header}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="divide-y divide-slate-100">
+            {data.map((row, rIdx) => (
+              <tr
+                key={rowKey ? rowKey(row) : rIdx}
+                className="bg-white/70 transition hover:bg-sky-50/60"
+              >
+                {columns.map((c, cIdx) => (
+                  <td key={cIdx} className={`px-5 py-4 align-middle ${c.className ?? ""}`}>
+                    {c.cell ? c.cell(row) : c.accessorKey ? String(row[c.accessorKey] ?? "") : null}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {!data.length && <div className="px-5 py-10 text-center text-sm text-slate-500">{emptyText}</div>}
     </div>
   );
 }

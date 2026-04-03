@@ -7,6 +7,7 @@ type UserTableProps = {
   users: User[];
   onEdit: (user: User) => void;
 };
+
 export default function UsersTable({ users, onEdit }: UserTableProps) {
   const columns: columnType<User>[] = [
     { header: "Name", accessorKey: "name" },
@@ -14,12 +15,12 @@ export default function UsersTable({ users, onEdit }: UserTableProps) {
     {
       header: "",
       id: "actions",
-      className: "w-[56px] text-right",
+      className: "w-[72px] text-right",
       cell: (u) => (
         <button
           type="button"
           onClick={() => onEdit(u)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white"
+          className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white p-2 text-slate-500 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
           aria-label={`Edit ${u.name}`}
           title="Edit"
         >
